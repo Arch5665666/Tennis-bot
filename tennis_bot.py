@@ -17,5 +17,5 @@ def send_telegram(text):
 
 if __name__ == "__main__":
     print("🚀 Бот запущен на GitHub Actions!")
-    send_telegram("🟢 Бот запущен на GitHub Actions! Отслеживаю счета 5:6, 6:5 и 6:6 по сетам.")
+    send_telegram("🟢 Бот запущен на GitHub Actions! Отслеживаю счета 5:6, 6:5 и 6:6.")
     print("✅ Проверка завершена")
