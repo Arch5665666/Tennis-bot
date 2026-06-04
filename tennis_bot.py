@@ -3,25 +3,22 @@ import json
 import os
 from datetime import datetime
 
-BOT_TOKEN = "BOT_TOKEN = "8711575445:AAFA2iJ9ZAUR0Mz5hd2XAGxPrJ02QMgszKc"
+BOT_TOKEN = "8711575445:AAFA2iJ9ZAUR0Mz5hd2XAGxPrJ02QMgszKc"
 CHAT_ID = "343523199"
 
 SEEN_FILE = "seen.json"
 
 def load_seen():
-    """Загружает список отправленных уведомлений"""
     if os.path.exists(SEEN_FILE):
         with open(SEEN_FILE, 'r') as f:
             return set(json.load(f))
     return set()
 
 def save_seen(seen):
-    """Сохраняет список отправленных уведомлений"""
     with open(SEEN_FILE, 'w') as f:
         json.dump(list(seen), f)
 
 def send_telegram(text):
-    """Отправляет сообщение в Telegram"""
     try:
         url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
         r = requests.post(url, json={"chat_id": CHAT_ID, "text": text}, timeout=10)
@@ -33,7 +30,6 @@ def send_telegram(text):
         print(f"❌ Ошибка: {e}")
 
 def check():
-    """Проверяет сайт на наличие счетов"""
     headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
     try:
         html = requests.get("https://sportscore.com/tennis/?filter=live", headers=headers, timeout=15).text
