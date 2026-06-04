@@ -3,7 +3,7 @@ import json
 import os
 from datetime import datetime
 
-BOT_TOKEN = "8711575445:AAFA2iJ9ZAUR0Mz5hd2XAGxPrJ0i2QMgszKc"
+BOT_TOKEN = "BOT_TOKEN = "8711575445:AAFA2iJ9ZAUR0Mz5hd2XAGxPrJ02QMgszKc"
 CHAT_ID = "343523199"
 
 SEEN_FILE = "seen.json"
