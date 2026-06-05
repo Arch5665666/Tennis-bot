@@ -14,4 +14,4 @@ jobs:
         with:
           python-version: '3.11'
       - run: pip install requests
-      - run: python tennis_bot.py
+      - run: python new_bot.py
