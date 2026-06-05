@@ -5,7 +5,7 @@ BOT_TOKEN = "8711575445:AAFA2iJ9ZAUR0Mz5hd2XAGxPrJ02QMgszKc"
 CHAT_ID = "343523199"
 
 def send_telegram(text):
-    print(f"📤 Отправка: {text[:50]}...")
+    print("📤 Отправка...")
     try:
         url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
         r = requests.post(url, json={"chat_id": CHAT_ID, "text": text}, timeout=10)
