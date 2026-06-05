@@ -14,9 +14,6 @@ jobs:
         with:
           python-version: '3.11'
       - run: pip install requests
-      - name: Check files
-        run: |
-          ls -la
-          echo "=== Содержимое tennis_bot.py ==="
-          cat tennis_bot.py
+      - name: Check file content
+        run: cat tennis_bot.py
       - run: python tennis_bot.py
