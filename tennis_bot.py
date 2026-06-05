@@ -10,7 +10,7 @@ CHAT_ID = "343523199"
 
 # НАСТРОЙКИ ПОЧТЫ
 EMAIL_ADDRESS = "Tennis.bet.66@yandex.ru"
-EMAIL_PASSWORD = "Art1479632014twnniabet"  # НЕ обычный пароль, а пароль приложения!
+EMAIL_PASSWORD = "fotmhezjthlsmywo"  # НЕ обычный пароль, а пароль приложения!
 
 notified = set()
 
