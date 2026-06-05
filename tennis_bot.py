@@ -1,24 +1,55 @@
 import requests
 import re
+import smtplib
+from email.message import EmailMessage
 from datetime import datetime
 
+# ---------- НАСТРОЙКИ ----------
 BOT_TOKEN = "8711575445:AAFA2iJ9ZAUR0Mz5hd2XAGxPrJ02QMgszKc"
 CHAT_ID = "343523199"
 
+# НАСТРОЙКИ ПОЧТЫ
+EMAIL_ADDRESS = "Tennis.bet.66@yandex.ru"
+EMAIL_PASSWORD = "fotmhezjthlsmywo"  # НЕ обычный пароль, а пароль приложения!
+
 notified = set()
 
+# ---------- ОТПРАВКА В TELEGRAM ----------
 def send_telegram(text):
-    print("📤 Отправка...")
+    print("📤 Отправка в Telegram...")
     try:
         url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
         r = requests.post(url, json={"chat_id": CHAT_ID, "text": text}, timeout=10)
         if r.status_code == 200:
             print("✅ Telegram отправлено")
         else:
-            print(f"❌ Ошибка: {r.status_code}")
+            print(f"❌ Ошибка Telegram: {r.status_code}")
     except Exception as e:
-        print(f"❌ Ошибка: {e}")
+        print(f"❌ Ошибка Telegram: {e}")
 
+# ---------- ОТПРАВКА НА ПОЧТУ ----------
+def send_email(subject, body):
+    print("📧 Отправка на почту...")
+    try:
+        msg = EmailMessage()
+        msg.set_content(body)
+        msg["Subject"] = subject
+        msg["From"] = EMAIL_ADDRESS
+        msg["To"] = EMAIL_ADDRESS
+        
+        with smtplib.SMTP_SSL("smtp.yandex.ru", 465) as server:
+            server.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
+            server.send_message(msg)
+        print("✅ Письмо отправлено")
+    except Exception as e:
+        print(f"❌ Ошибка почты: {e}")
+
+# ---------- ОТПРАВКА ВО ВСЕ КАНАЛЫ ----------
+def send_all(message):
+    send_telegram(message)
+    send_email("🎾 Теннис-бот: новое уведомление", message)
+
+# ---------- ПРОВЕРКА САЙТА ----------
 def check():
     headers = {"User-Agent": "Mozilla/5.0"}
     try:
@@ -43,13 +74,15 @@ def check():
                     
                     if key not in notified:
                         notified.add(key)
-                        send_telegram(f"🎾 {score} - Сет {set_num}: {player1} vs {player2}")
+                        message = f"🎾 {score} - Сет {set_num}: {player1} vs {player2}"
+                        send_all(message)
                         print(f"🔔 НАЙДЕНО: {score} в сете {set_num}")
                         
     except Exception as e:
         print(f"Ошибка: {e}")
 
+# ---------- ЗАПУСК ----------
 if __name__ == "__main__":
     print("🚀 Бот запущен! Отслеживаю счета 5:6, 6:5, 6:6 по сетам.")
-    send_telegram("🟢 Бот перезапущен и начал мониторинг счетов 5:6, 6:5 и 6:6!")
+    send_all("🟢 Бот перезапущен и начал мониторинг счетов 5:6, 6:5 и 6:6!")
     check()
